@@ -1,0 +1,108 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Variables
+@import 'variables';
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+//Font Awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+//page-objects
+@import 'page';
+.navbar-laravel {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navbar-brand {
+    line-height: 1;
+    font-size: 0.1rem;
+    p {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0px;
+        padding: 0px;
+        line-height: 1;
+    }
+    span {
+        font-size: 12px;
+        margin: 0px;
+        line-height: 1;
+    }
+    img {
+        max-width: 300px;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.partial {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.partial-25 {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+}
+
+.partial-50 {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.partial-75 {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    justify-content: flex-start !important;
+}
+
+.right {
+    justify-content: flex-end !important;
+}
+
+.column {
+    flex-direction: column !important;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.space-btw {
+    justify-content: space-between !important;
+}
+
+.center-v {
+    align-items: center !important;
+}
+
+.center-h {
+    justify-content: center !important;
+}
+
+.start-v {
+    align-items: flex-start !important;
+}
+
+.start-h {
+    justify-content: flex-start !important;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.navbar-nav {
+    margin-top: 24px;
+}

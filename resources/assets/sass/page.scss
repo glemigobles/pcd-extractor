@@ -1,0 +1,71 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Variables
+@import 'variables';
+#modules {
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    a {
+        color: #000;
+        transition: all 0.5s;
+        &:hover {
+            color: $color1;
+            text-decoration: none;
+            transition: all 0.5s;
+        }
+    }
+    .big {
+        font-size: 50px;
+        margin: 12px 24px;
+        max-width: 300px;
+        p {
+            font-family: 'Nunito';
+            font-size: 16px;
+            text-align: center;
+            margin-top: 12px;
+            font-weight: 400;
+        }
+    }
+}
+
+#menu-btn {
+    margin-right: 24px;
+    a {
+        color: #000;
+        transition: all 0.5s;
+        &:hover {
+            color: $color1;
+            text-decoration: none;
+            transition: all 0.5s;
+        }
+    }
+}
+
+#module-title {
+    i {
+        margin-right: 12px;
+    }
+}
+
+#module-menu {
+    padding: 6px;
+    ul {
+        margin: 12px 0px;
+        padding: 0px;
+    }
+    li {
+        list-style-type: none;
+    }
+}
+
+.fa-window-close {
+    font-size: 24px;
+    color: #000;
+    transition: all 0.5s;
+    &:hover {
+        color: $color1;
+        text-decoration: none;
+        transition: all 0.5s;
+    }
+}
