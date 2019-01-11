@@ -11,8 +11,12 @@
 //page-objects
 @import 'page';
 .navbar-laravel {
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.055);
+    border-bottom:rgba(0, 0, 0, 0.155) 1px solid;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.card{
+    border-radius:0px !important;
 }
 
 .navbar-brand {
@@ -105,4 +109,12 @@
 
 .navbar-nav {
     margin-top: 24px;
+}
+.el-button{
+    border-radius:0px !important;
+}
+
+.el-button--primary{
+    background: $color2 !important;
+    border:0px !important;
 }

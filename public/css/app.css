@@ -15359,7 +15359,7 @@ readers do not read off random characters that represent icons */
 }
 
 #modules a:hover {
-  color: #ff0000;
+  color: #7700ff;
   text-decoration: none;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -15390,7 +15390,7 @@ readers do not read off random characters that represent icons */
 }
 
 #menu-btn a:hover {
-  color: #ff0000;
+  color: #7700ff;
   text-decoration: none;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -15421,16 +15421,21 @@ readers do not read off random characters that represent icons */
 }
 
 .fa-window-close:hover {
-  color: #ff0000;
+  color: #7700ff;
   text-decoration: none;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.055);
+  border-bottom: rgba(0, 0, 0, 0.155) 1px solid;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.card {
+  border-radius: 0px !important;
 }
 
 .navbar-brand {
@@ -15569,5 +15574,14 @@ readers do not read off random characters that represent icons */
 
 .navbar-nav {
   margin-top: 24px;
+}
+
+.el-button {
+  border-radius: 0px !important;
+}
+
+.el-button--primary {
+  background: #7700ff !important;
+  border: 0px !important;
 }
 
