@@ -51,6 +51,7 @@ class Lib extends Model
         return $sites;
     }
 
+
     public function createxls($clients)
     {
         $inputxls= storage_path('app/public/raport.xlsx');  
@@ -67,26 +68,46 @@ class Lib extends Model
                 //tel
                 //$tel=json_encode($client['phone']);
                 $tel="";
-                if(count($client['phone'])>1){
-                    foreach($client['phone'] as $p){
-                        $tel.=$p.', ';
+                // if(count($client['phone'])>1){
+                //     foreach($client['phone'] as $p){
+                //         $number=preg_replace("/[^0-9]/","", $p);
+                //         $tel.=$number.', ';
+                //     }
+                // }else{
+                //     $tel=json_encode($client['phone']);
+                // }
+                foreach($client['phone'] as $p){
+                        $number=preg_replace("/[^0-9]/","", $p);
+                        $tel.=$number.', ';
                     }
-                }else{
-                    $tel=json_encode($client['phone']);
-                }
                 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(3, $row, trim($tel,'"["]"'));
                 //email
                 $email=json_encode($client['email']);
                 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(4, $row, trim($email,'"["]"'));
                 //adres
                 $adress=$client['adress'];
-                $adress=str_replace('streetAddress','',$adress);
-                $adress=str_replace('addressLocality','',$adress);
-                $adress=str_replace('addressRegion','',$adress);
-                $adress=str_replace('postalCode','',$adress);
-                $adress=str_replace('"','',$adress);
-                $adress=str_replace(':','',$adress);
-                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(5, $row, $adress);
+                $street=$this->get_string_between($adress,'"streetAddress":"','","' );
+                $street=$this->convert_to_ascii($street);
+                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(5, $row, $street);
+                $city=$this->get_string_between($adress,'"addressLocality":"','","' );
+                $city=$this->convert_to_ascii($city);
+                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(6, $row, $city);
+                $region=$this->get_string_between($adress,'"addressRegion":"','","' );
+                $region=$this->convert_to_ascii($region);
+                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(7, $row, $region);
+                $postal=substr($adress, -7);
+                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(8, $row, $postal);
+                $area=$this->get_string_between($adress,'"postalCode":"',' ' );
+                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(9, $row, $area);
+                //pages
+                $pages='';
+                foreach($client['pages'] as $p){     
+                        $pages.=$p.', ';
+                    }
+                    $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(10, $row, $pages);
+                //pages count
+                $count=count($client['pages']);
+                $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(11, $row, $count);
                 $row++;
         }
      
@@ -150,7 +171,7 @@ class Lib extends Model
     $clients=[];
     $i=0;
     foreach($result as $id =>$a){    
-        $client=array('name'=>'','url'=>'','email'=>array(),'phone'=>array(),'adress'=>'');
+        $client=array('name'=>'','url'=>'','email'=>array(),'phone'=>array(),'adress'=>'','pages'=>array());
                      //nazwa
                     $res = preg_match(
                     "/<title>(.*)<\/title>/siU",
@@ -196,7 +217,25 @@ class Lib extends Model
                     if ($res) {
                         $client['adress']=$matches[0];
                     }
-                    
+                    //pages
+                    $res = preg_match(
+                    "/\"navContainer\"(.*)<\/nav>/siU",
+                    $a,
+                    $matches
+                    );
+                    if ($res) {
+                        $nav=$matches[0];
+                        $res2=preg_match_all("/\"internal_link_clicked\"(.*)<\/a>/siU",
+                            $nav,
+                            $matches);
+                            if($res2){     
+                                foreach(array_unique($matches[0]) as $page){
+                                $p=substr_replace($page, '',0,24 );
+                                array_push($client['pages'], substr_replace($p,'',-4,4));
+                            }
+                        }
+                    }
+
                     //dodaj do tablicy klientow
                     array_push($clients, $client);
                     $i++;
@@ -207,4 +246,23 @@ class Lib extends Model
 
     return $clients;
     }
+
+    public function get_string_between($string, $start, $end){
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
+    }
+
+    public function convert_to_ascii($string){
+        // $string=str_replace('\u00e7', 'c', $string);
+        // $string=str_replace('\u00e9', 'e', $string);
+        $str     = str_replace('\u','u',$string);
+        $str_replaced = preg_replace('/u([\da-fA-F]{4})/', '&#x\1;', $str);
+        $newstring=html_entity_decode($str_replaced);
+        return $newstring;
+    }
+
 }
