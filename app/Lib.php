@@ -66,7 +66,6 @@ class Lib extends Model
                 //url
                 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(2, $row, $client['url']);
                 //tel
-                //$tel=json_encode($client['phone']);
                 $tel="";
                 // if(count($client['phone'])>1){
                 //     foreach($client['phone'] as $p){
